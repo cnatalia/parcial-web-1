@@ -1,0 +1,63 @@
+<section class="mb-lg">
+  <h1 class="font-display-lg text-display-lg text-on-background mb-sm">
+    Repositories
+  </h1>
+  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+    Manage and explore your synchronized projects. Each repository represents a
+    clean connection between your team and the codebase.
+  </p>
+</section>
+<div *ngIf="loading" class="loading">
+  <div class="spinner"></div>
+  <span>Cargando repositorios...</span>
+</div>
+<div
+  *ngIf="!loading"
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"
+>
+  <div
+    *ngFor="let repo of reposVisible"
+    class="bg-surface-container-lowest border border-slate-100 rounded-xl p-md shadow-[0_4px_20px_0_rgba(118,149,255,0.05)] hover:shadow-[0_8px_30px_0_rgba(118,149,255,0.12)] transition-all duration-300 group"
+  >
+    <div class="flex justify-between items-start mb-sm">
+      <div class="p-xs bg-primary-container/10 rounded-lg">
+        <span
+          class="material-symbols-outlined text-primary"
+          data-icon="folder_open"
+          >folder_open</span
+        >
+      </div>
+      <div class="flex items-center gap-xs">
+        <span
+          class="material-symbols-outlined text-tertiary text-sm"
+          data-icon="star"
+          data-weight="fill"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >star</span
+        >
+        <span class="font-label-caps text-label-caps text-on-surface-variant">{{
+          repo.stars
+        }}</span>
+      </div>
+    </div>
+    <h3
+      class="font-headline-md text-headline-md text-on-surface mb-xs group-hover:text-primary transition-colors"
+    >
+      {{ repo.name }}
+    </h3>
+    <p
+      class="font-body-sm text-body-sm text-on-surface-variant mb-md h-12 overflow-hidden"
+    >
+      {{ repo.description }}
+    </p>
+    <div class="flex items-center justify-between mt-auto">
+      <div class="flex items-center gap-sm">
+        <div class="w-3 h-3 rounded-full bg-[#f1e05a]"></div>
+        <span class="font-label-caps text-label-caps text-on-surface-variant">{{
+          repo.language
+        }}</span>
+      </div>
+    </div>
+  </div>
+  <button (click)="onLoadMoreClick()"  *ngIf="reposLimit() < repos.length">Cargar mas</button>
+</div>
