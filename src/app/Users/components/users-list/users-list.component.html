@@ -1,0 +1,44 @@
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <span>Cargando usuarios...</span>
+  </div>
+
+<div *ngIf="!loading" class="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+  <!-- User Card 1 -->
+  <div
+    *ngFor="let user of usersVisible" class="bg-surface-container-lowest border border-surface-container-highest p-md rounded-xl shadow-[0_4px_20px_0_rgba(118,149,255,0.06)] hover:shadow-[0_8px_30px_0_rgba(118,149,255,0.12)] transition-all duration-300 group cursor-pointer"
+  >
+    <div class="flex items-start gap-md">
+      <div
+        class="w-14 h-14 rounded-xl overflow-hidden bg-primary-fixed flex-shrink-0"
+      >
+        <img
+          alt="Alex Rivera"
+          data-alt="Close-up portrait of a developer in a bright, modern studio. The lighting is soft and even, highlighting a clean and serene aesthetic. The background is a muted, pale blue gradient that aligns with the software's calming color palette. Professionalism and high-tech minimalist design are key."
+          src={{user.avatarUrl}}
+        />
+      </div>
+      <div class="flex-grow">
+        <h3
+          class="font-headline-md text-headline-md text-on-surface mb-xs group-hover:text-primary transition-colors"
+        >
+          {{user.name}}
+        </h3>
+        <div class="flex flex-wrap gap-xs mb-md">
+          <span
+            class="bg-secondary-container/30 text-on-secondary-container px-sm py-1 rounded-full font-label-caps text-label-caps"
+            >{{user.role}}</span
+          >
+        </div>
+        <div class="flex items-center gap-xs text-on-surface-variant">
+          <span class="material-symbols-outlined text-sm" data-icon="terminal"
+            >terminal</span
+          >
+          <span class="font-body-sm text-body-sm">{{user.repoIds.length}} Repositories</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="userLimit() < users.length" (click)="onLoadMoreClick()">Cargar mas</button>
+</div>
+
