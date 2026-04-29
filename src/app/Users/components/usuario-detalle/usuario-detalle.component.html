@@ -1,0 +1,140 @@
+<div
+  class="overlay"
+  *ngIf="user"
+  (click)="onClose()"
+  class="fixed inset-0 z-[60] flex items-center justify-center p-md bg-on-background/40 backdrop-blur-sm"
+>
+  <div
+   (click)="$event.stopPropagation()" class="bg-surface-container-lowest w-full max-w-3xl max-h-[921px] overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col"
+  >
+    <div
+      class="flex items-center justify-between p-gutter border-b border-surface-variant"
+    >
+      <h2 class="font-headline-md text-headline-md text-on-surface">
+        User Details
+      </h2>
+      <button
+      (click)="onClose()"
+        class="h-10 w-10 flex items-center justify-center hover:bg-surface-container rounded-full transition-colors"
+      >
+        <span class="material-symbols-outlined text-on-surface-variant"
+          >close</span
+        >
+      </button>
+    </div>
+    <div class="overflow-y-auto p-gutter space-y-lg">
+      <section
+        class="flex flex-col md:flex-row gap-gutter items-start md:items-center"
+      >
+        <div class="relative">
+          <div
+            class="h-24 w-24 rounded-2xl overflow-hidden border-4 border-white shadow-lg"
+          >
+            <img
+              [alt]="user.name"
+              class="h-full w-full object-cover"
+              [src]="user.avatarUrl"
+              data-alt="A close-up portrait of a thoughtful young man in a modern office environment. He has short hair and is wearing a dark navy casual blazer. The background is a bright, minimalist coworking space with abundant natural light and soft blue accents. The image conveys a professional, serene, and tech-forward mood consistent with high-end developer tools."
+              />
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="font-display-lg text-[28px] text-on-surface">
+              {{ user.name }}
+            </h3>
+            <span
+              class="px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-caps text-[10px] uppercase tracking-widest border border-secondary-container/50"
+              >{{ user.role }}</span
+            >
+          </div>
+          <div class="flex flex-wrap gap-x-6 gap-y-2 mt-2">
+            <div
+              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
+            >
+              <span class="material-symbols-outlined text-[18px]"
+                >alternate_email</span
+              >
+              <span>{{ user.username }}</span>
+            </div>
+            <div
+              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
+            >
+              <span class="material-symbols-outlined text-[18px]">email</span>
+              <span>{{ user.email }}</span>
+            </div>
+            <div
+              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
+            >
+              <span class="material-symbols-outlined text-[18px]"
+                >location_on</span
+              >
+              <span>{{ user.location }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="flex items-center justify-between mb-4">
+          <h4 class="font-headline-md text-headline-md text-on-surface">
+            Repositorios
+          </h4>
+          <span
+            class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-1 rounded"
+            >{{ user.repoIds.length }} TOTAL</span
+          >
+        </div>
+        <div *ngIf="!loadingRepos && repos.length === 0" class="repos-empty">
+          Sin repositorios asociados
+        </div>
+        <div *ngIf="!loadingRepos && repos.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+          *ngFor="let repoId of user.repoIds"
+            class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-primary-container transition-all group shadow-sm"
+          >
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="material-symbols-outlined text-primary"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >folder</span
+                  >
+                  <span class="font-button text-button text-on-surface"
+                    ></span
+                  >
+                </div>
+                <p
+                  class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-1"
+                >
+                  Main backend architecture and API routes.
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors cursor-pointer"
+                >open_in_new</span
+              >
+            </div>
+            <div class="flex items-center gap-4 mt-4">
+              <div
+                class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium"
+              >
+                <span
+                  class="h-2.5 w-2.5 rounded-full bg-primary-container"
+                ></span>
+                <span>TypeScript</span>
+              </div>
+              <div
+                class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium"
+              >
+                <span class="material-symbols-outlined text-[16px]">star</span>
+                <span>1.2k</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

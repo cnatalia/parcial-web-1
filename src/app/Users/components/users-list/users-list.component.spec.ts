@@ -10,7 +10,7 @@ describe('UsersListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         UsersListComponent,
-        HttpClientTestingModule // 👈
+        HttpClientTestingModule 
       ],
     }).compileComponents();
 
