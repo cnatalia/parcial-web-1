@@ -1,59 +1,125 @@
-# ParcialWeb1
+# ParcialWeb1 - Evaluación Práctica Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.22.
+Este proyecto fue generado usando Angular CLI versión 19.2.22 y corresponde al desarrollo de la evaluación práctica del curso MISW-4104.
 
-## Development server
+## 📌 Descripción
 
-To start a local development server, run:
+La aplicación consiste en una interfaz desarrollada en Angular que permite visualizar información de usuarios de GitHub y sus repositorios, implementando conceptos como módulos, servicios HTTP, componentes y patrones de diseño maestro-detalle.
+
+La interfaz gráfica se creó usando Stitch
+
+---
+
+## 🚀 Servidor de desarrollo
+
+Para iniciar el servidor local de desarrollo, ejecuta:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Luego abre tu navegador en:
 
-## Code scaffolding
+http://localhost:4200/
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+La aplicación se recargará automáticamente cada vez que modifiques el código fuente.
+
+---
+
+## ⚙️ Generación de código
+
+Angular CLI permite generar componentes, servicios y otros elementos fácilmente. Por ejemplo:
 
 ```bash
-ng generate component component-name
+ng generate component nombre-del-componente
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para ver todas las opciones disponibles:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+---
 
-To build the project run:
+## 🏗️ Construcción del proyecto
+
+Para compilar el proyecto:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Los archivos generados se almacenarán en el directorio `dist/`. La compilación en modo producción optimiza el rendimiento.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🧪 Pruebas
+
+### Pruebas unitarias
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Pruebas end-to-end (e2e)
 
 ```bash
 ng e2e
 ```
+Aunque para este ejercicio no corresponden.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📚 Enunciado de la Evaluación
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 🔹 Punto 1 (30%) - Usuarios
+
+- Crear un módulo de Usuarios  
+- Implementar una clase `Usuario` con sus atributos  
+- Crear un servicio HTTP para consumir los datos desde:  
+  https://gist.githubusercontent.com/caev03/.../users.json  
+- Crear un componente para listar usuarios (UI de calidad tipo mockup)
+
+---
+
+### 🔹 Punto 2 (20%) - Detalle de Usuario
+
+- Implementar vista de detalle usando patrón maestro-detalle  
+- Debe hacerse usando componentes (no URLs)
+
+---
+
+### 🔹 Punto 3 (30%) - Repositorios
+
+- Crear un módulo de Repositorios  
+- Implementar una clase `Repositorio`  
+- Crear un servicio HTTP para consumir los datos desde:  
+  https://gist.githubusercontent.com/caev03/.../repositories.json  
+- Crear un componente para listar repositorios (UI de calidad tipo mockup)
+
+---
+
+### 🔹 Punto 4 (20%) - Detalle de Repositorio
+
+- Implementar vista de detalle usando patrón maestro-detalle  
+- Debe hacerse usando URLs (no componentes)
+
+---
+
+## 📦 Entrega
+
+1. Realizar commit y push al repositorio personal  
+2. Crear un release con:
+   - Tag: 1.0.0  
+   - Título: ParcialMISW4104  
+3. Entregar:
+   - Archivo .zip del release  
+   - URL del repositorio  
+4. No se permiten cambios después de la entrega
+
+---
+
+## 📖 Recursos adicionales
+
+https://angular.dev/tools/cli
