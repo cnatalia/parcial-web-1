@@ -8,11 +8,10 @@
   class="grid"
   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"
 >
-  <!-- User Card 1 -->
   <div
     *ngFor="let user of usersVisible"
     (click)="onSelectUser(user)"
-    class="bg-surface-container-lowest border border-surface-container-highest p-md rounded-xl shadow-[0_4px_20px_0_rgba(118,149,255,0.06)] hover:shadow-[0_8px_30px_0_rgba(118,149,255,0.12)] transition-all duration-300 group cursor-pointer"
+    class="cursor-pointer bg-surface-container-lowest border border-surface-container-highest p-md rounded-xl shadow-[0_4px_20px_0_rgba(118,149,255,0.06)] hover:shadow-[0_8px_30px_0_rgba(118,149,255,0.12)] transition-all duration-300 group cursor-pointer"
   >
     <div class="flex items-start gap-md">
       <div
@@ -47,9 +46,17 @@
       </div>
     </div>
   </div>
-  <button *ngIf="userLimit() < users.length" (click)="onLoadMoreClick()">
-    Cargar mas
-  </button>
-  <app-usuario-detalle *ngIf="selectedUser" [user]="selectedUser" (closed)="onCloseDetail()">
+  <app-usuario-detalle
+    *ngIf="selectedUser"
+    [user]="selectedUser"
+    (closed)="onCloseDetail()"
+  >
   </app-usuario-detalle>
 </div>
+<button
+  class="flex m-auto mt-10 w-fit bg-primary text-on-primary px-md py-2 rounded-lg font-button text-button shadow-[0_4px_12px_0_rgba(53,87,189,0.2)] hover:opacity-90 transition-all active:scale-95"
+  *ngIf="userLimit() < users.length"
+  (click)="onLoadMoreClick()"
+>
+  Cargar mas
+</button>

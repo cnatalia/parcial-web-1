@@ -90,7 +90,7 @@
         <div *ngIf="!loadingRepos && repos.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div
           *ngFor="let repoId of user.repoIds"
-            class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-primary-container transition-all group shadow-sm"
+            class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest transition-all group shadow-sm"
           >
             <div class="flex items-start justify-between">
               <div>
@@ -110,10 +110,6 @@
                   Main backend architecture and API routes.
                 </p>
               </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors cursor-pointer"
-                >open_in_new</span
-              >
             </div>
             <div class="flex items-center gap-4 mt-4">
               <div

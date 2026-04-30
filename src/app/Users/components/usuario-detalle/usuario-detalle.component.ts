@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { User } from '../../models/usuarios-model';
 import { Repo } from '../../../Repositorios/models/repositorios';
@@ -23,7 +29,7 @@ export class UsuarioDetalleComponent {
     this.closed.emit();
   }
 
-    ngOnChanges(changes: SimpleChanges): void { 
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['user'] && this.user) {
       this.loadRepos();
     }
