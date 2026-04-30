@@ -1,8 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
 import { UsersService } from '../../services/usuarios.service';
 import { User } from '../../models/usuarios-model';
-import { UsuarioDetalleComponent } from '../usuario-detalle/usuario-detalle.component';
 
 @Component({
   standalone: false,

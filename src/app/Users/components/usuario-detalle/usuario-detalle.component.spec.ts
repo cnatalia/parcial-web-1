@@ -1,21 +1,17 @@
-/* tslint:disable:no-unused-variable */
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { UsuarioDetalleComponent } from './usuario-detalle.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { UsuarioDetalleComponent } from './usuario-detalle.component';
 
-
-
-describe('UsuarioComponent', () => {
+describe('UsuarioDetalleComponent', () => {
   let component: UsuarioDetalleComponent;
   let fixture: ComponentFixture<UsuarioDetalleComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ UsuarioDetalleComponent, HttpClientTestingModule ]
-    })
-    .compileComponents();
+      declarations: [UsuarioDetalleComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -26,5 +22,19 @@ describe('UsuarioComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should start with user = null', () => {
+    expect(component.user).toBeNull();
+  });
+
+  it('should start with empty repos array', () => {
+    expect(component.repos).toEqual([]);
+  });
+
+  it('should emit closed event when onClose is called', () => {
+    spyOn(component.closed, 'emit');
+    component.onClose();
+    expect(component.closed.emit).toHaveBeenCalled();
   });
 });

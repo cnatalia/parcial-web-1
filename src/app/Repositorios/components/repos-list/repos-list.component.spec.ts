@@ -1,8 +1,6 @@
-/* tslint:disable:no-unused-variable */
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ReposListComponent } from './repos-list.component';
 
 describe('ReposListComponent', () => {
@@ -11,9 +9,9 @@ describe('ReposListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReposListComponent ]
-    })
-    .compileComponents();
+      declarations: [ReposListComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -24,5 +22,17 @@ describe('ReposListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should start with loading = true', () => {
+    expect(component.loading).toBeTrue();
+  });
+
+  it('should start with empty repos array', () => {
+    expect(component.repos).toEqual([]);
+  });
+
+  it('should start with reposLimit = 8', () => {
+    expect(component.reposLimit()).toBe(8);
   });
 });

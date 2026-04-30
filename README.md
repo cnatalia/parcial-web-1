@@ -2,124 +2,133 @@
 
 Este proyecto fue generado usando Angular CLI versión 19.2.22 y corresponde al desarrollo de la evaluación práctica del curso MISW-4104.
 
-## 📌 Descripción
+## Descripción
 
-La aplicación consiste en una interfaz desarrollada en Angular que permite visualizar información de usuarios de GitHub y sus repositorios, implementando conceptos como módulos, servicios HTTP, componentes y patrones de diseño maestro-detalle.
-
-La interfaz gráfica se creó usando Stitch
+Aplicación en Angular que permite visualizar usuarios de GitHub y sus repositorios. Implementa una arquitectura basada en **NgModules** con servicios HTTP, patrones maestro-detalle por componente y por URL, y una interfaz gráfica creada con Stitch.
 
 ---
 
-## 🚀 Servidor de desarrollo
+## Arquitectura del proyecto
 
-Para iniciar el servidor local de desarrollo, ejecuta:
+El proyecto usa arquitectura basada en **NgModules** (no standalone). El bootstrap se realiza desde `AppModule` a través de `platformBrowserDynamic`.
+
+```
+src/
+└── app/
+    ├── app.module.ts          # Módulo raíz — declara AppComponent, Header, Footer
+    ├── app.routes.ts          # Definición de rutas de la aplicación
+    ├── app.component.*        # Componente raíz con <router-outlet>
+    ├── header/                # Componente de navegación (no-standalone)
+    ├── footer/                # Componente de pie de página (no-standalone)
+    │
+    ├── Users/                 # Módulo de Usuarios
+    │   ├── users.module.ts
+    │   ├── models/
+    │   │   └── usuarios-model.ts      # Interface User
+    │   ├── services/
+    │   │   └── usuarios.service.ts    # HTTP — users.json
+    │   └── components/
+    │       ├── users-list/            # Lista de usuarios (maestro)
+    │       └── usuario-detalle/       # Detalle por componente (Punto 2)
+    │
+    └── Repositorios/          # Módulo de Repositorios
+        ├── repos.module.ts
+        ├── models/
+        │   └── repositorios.ts        # Interface Repo
+        ├── services/
+        │   └── repositorios.service.ts  # HTTP — repositories.json
+        └── components/
+            ├── repos-list/            # Lista de repositorios (maestro)
+            └── repos-detail/          # Detalle por URL (Punto 4)
+```
+
+### Módulos
+
+**AppModule** (`app.module.ts`)
+Módulo raíz. Declara `AppComponent`, `HeaderComponent` y `FooterComponent`. Importa `BrowserModule`, `HttpClientModule`, `RouterModule.forRoot(routes)`, `UsersModule` y `RepositoriosModule`.
+
+**UsersModule** (`Users/users.module.ts`)
+Declara `UsersListComponent` y `UsuarioDetalleComponent`. Importa `CommonModule` y `RouterModule`.
+
+**RepositoriosModule** (`Repositorios/repos.module.ts`)
+Declara `ReposListComponent` y `ReposDetailComponent`. Importa `CommonModule` y `RouterModule`.
+
+---
+
+### Rutas
+
+| Ruta | Componente | Descripción |
+|------|-----------|-------------|
+| `/` | `UsersListComponent` | Lista de usuarios |
+| `/usuarios` | `UsersListComponent` | Lista de usuarios |
+| `/repositorios` | `ReposListComponent` | Lista de repositorios |
+| `/repositorios/:id` | `ReposDetailComponent` | Detalle de repositorio por URL |
+
+El detalle de **usuario** se maneja con el patrón maestro-detalle por **componente** (`<app-usuario-detalle>` dentro de `users-list`). El detalle de **repositorio** se maneja por **URL** (`/repositorios/:id`), donde `ReposDetailComponent` lee el `id` desde `ActivatedRoute`.
+
+---
+
+### Servicios HTTP
+
+**UsersService** — `Users/services/usuarios.service.ts`
+Consume `users.json` desde el gist del curso. Métodos: `getUsers()` y `getUserById(id)`.
+
+**RepositoriosService** — `Repositorios/services/repositorios.service.ts`
+Consume `repositories.json` desde el gist del curso. Métodos: `getRepos()`, `getReposByIds(ids)`.
+
+---
+
+### Modelos
+
+**User** (`Users/models/usuarios-model.ts`)
+```ts
+export interface User {
+  id: number;
+  username: string;
+  name: string;
+  email: string;
+  avatarUrl: string;
+  role: string;
+  location: string;
+  repoIds: number[];
+}
+```
+
+**Repo** (`Repositorios/models/repositorios.ts`)
+```ts
+export interface Repo {
+  id: number;
+  name: string;
+  description: string;
+  language: string;
+  stars: number;
+  createdAt: string;
+  ownerId: number;
+}
+```
+
+---
+
+## Desarrollo local
 
 ```bash
 ng serve
 ```
 
-Luego abre tu navegador en:
+Abre `http://localhost:4200/` en el navegador. La aplicación se recarga automáticamente al modificar el código.
 
-http://localhost:4200/
-
-La aplicación se recargará automáticamente cada vez que modifiques el código fuente.
-
----
-
-## ⚙️ Generación de código
-
-Angular CLI permite generar componentes, servicios y otros elementos fácilmente. Por ejemplo:
-
-```bash
-ng generate component nombre-del-componente
-```
-
-Para ver todas las opciones disponibles:
-
-```bash
-ng generate --help
-```
-
----
-
-## 🏗️ Construcción del proyecto
-
-Para compilar el proyecto:
+## Compilación
 
 ```bash
 ng build
 ```
 
-Los archivos generados se almacenarán en el directorio `dist/`. La compilación en modo producción optimiza el rendimiento.
+Los archivos generados se almacenan en `dist/`. La compilación en modo producción optimiza el rendimiento.
 
----
-
-## 🧪 Pruebas
-
-### Pruebas unitarias
+## Pruebas unitarias
 
 ```bash
 ng test
 ```
 
-### Pruebas end-to-end (e2e)
-
-```bash
-ng e2e
-```
-Aunque para este ejercicio no corresponden.
-
 ---
-
-## 📚 Enunciado de la Evaluación
-
-### 🔹 Punto 1 (30%) - Usuarios
-
-- Crear un módulo de Usuarios  
-- Implementar una clase `Usuario` con sus atributos  
-- Crear un servicio HTTP para consumir los datos desde:  
-  https://gist.githubusercontent.com/caev03/.../users.json  
-- Crear un componente para listar usuarios (UI de calidad tipo mockup)
-
----
-
-### 🔹 Punto 2 (20%) - Detalle de Usuario
-
-- Implementar vista de detalle usando patrón maestro-detalle  
-- Debe hacerse usando componentes (no URLs)
-
----
-
-### 🔹 Punto 3 (30%) - Repositorios
-
-- Crear un módulo de Repositorios  
-- Implementar una clase `Repositorio`  
-- Crear un servicio HTTP para consumir los datos desde:  
-  https://gist.githubusercontent.com/caev03/.../repositories.json  
-- Crear un componente para listar repositorios (UI de calidad tipo mockup)
-
----
-
-### 🔹 Punto 4 (20%) - Detalle de Repositorio
-
-- Implementar vista de detalle usando patrón maestro-detalle  
-- Debe hacerse usando URLs (no componentes)
-
----
-
-## 📦 Entrega
-
-1. Realizar commit y push al repositorio personal  
-2. Crear un release con:
-   - Tag: 1.0.0  
-   - Título: ParcialMISW4104  
-3. Entregar:
-   - Archivo .zip del release  
-   - URL del repositorio  
-4. No se permiten cambios después de la entrega
-
----
-
-## 📖 Recursos adicionales
-
-https://angular.dev/tools/cli
