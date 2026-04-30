@@ -28,19 +28,19 @@
         <img
           alt="Alex Rivera"
           data-alt="Close-up portrait of a developer in a bright, modern studio. The lighting is soft and even, highlighting a clean and serene aesthetic. The background is a muted, pale blue gradient that aligns with the software's calming color palette. Professionalism and high-tech minimalist design are key."
-          src="{{ user.avatarUrl }}"
+          src="{{ user?.avatarUrl }}"
         />
       </div>
       <div class="flex-grow">
         <h3
           class="font-headline-md text-headline-md text-on-surface mb-xs group-hover:text-primary transition-colors"
         >
-          {{ user.name }}
+          {{ user?.name }}
         </h3>
         <div class="flex flex-wrap gap-xs mb-md">
           <span
             class="bg-secondary-container/30 text-on-secondary-container px-sm py-1 rounded-full font-label-caps text-label-caps"
-            >{{ user.role }}</span
+            >{{ user?.role }}</span
           >
         </div>
         <div class="flex items-center gap-xs text-on-surface-variant">
@@ -48,7 +48,7 @@
             >terminal</span
           >
           <span class="font-body-sm text-body-sm"
-            >{{ user.repoIds.length }} Repositories</span
+            >{{ user?.repoIds?.length }} Repositories</span
           >
         </div>
       </div>

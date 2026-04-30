@@ -1,48 +1,55 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
-
-import { Repo } from '../../../Repositorios/models/repositorios';
-import { User } from '../../../Users/models/usuarios-model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RepositoriosService } from '../../services/repositorios.service';
 import { UsersService } from '../../../Users/services/usuarios.service';
+import { Repo } from '../../models/repositorios';
+import { User } from '../../../Users/models/usuarios-model';
 
 @Component({
-  standalone: true,
+  standalone: false,
   selector: 'app-repos-detail',
-  imports: [NgIf, NgFor],
   templateUrl: './repos-detail.component.html',
-  styleUrl: './repos-detail.component.css',
+  styleUrls: ['./repos-detail.component.css'],
 })
-export class ReposDetailComponent {
-  @Input() repo: Repo | null = null;
-  @Output() closed = new EventEmitter<void>();
-
-  user?: User;
+export class ReposDetailComponent implements OnInit {
+  repo: Repo | null = null;
+  user: User | undefined = undefined;
+  loadingRepo = true;
   loadingUser = false;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private reposService: RepositoriosService,
+    private usersService: UsersService
+  ) {}
 
-  onClose(): void {
-    this.closed.emit();
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.reposService.getRepos().subscribe({
+      next: (repos) => {
+        this.repo = repos.find((r) => r.id === id) || null;
+        this.loadingRepo = false;
+        if (this.repo?.ownerId) {
+          this.loadUser(this.repo.ownerId);
+        }
+      },
+      error: () => (this.loadingRepo = false),
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['repo'] && this.repo) {
-      this.user = undefined;
-      this.loadUser();
-    }
-  }
-
-  loadUser(): void {
-    if (!this.repo || !this.repo.ownerId) return;
-
+  loadUser(ownerId: number): void {
     this.loadingUser = true;
-
-    this.usersService.getUserById(this.repo.ownerId).subscribe({
+    this.usersService.getUserById(ownerId).subscribe({
       next: (user) => {
         this.user = user;
         this.loadingUser = false;
       },
       error: () => (this.loadingUser = false),
     });
+  }
+
+  onBack(): void {
+    this.router.navigate(['/repositorios']);
   }
 }

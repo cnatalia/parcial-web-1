@@ -1,13 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 import { RepositoriosService } from '../../services/repositorios.service';
 import { Repo } from '../../models/repositorios';
-import { ReposDetailComponent } from '../repos-detail/repos-detail.component';
 
 @Component({
-  standalone: true,
+  standalone: false,
   selector: 'app-listar-repos',
-  imports: [NgForOf, NgIf, ReposDetailComponent],
   templateUrl: './repos-list.component.html',
   styleUrl: './repos-list.component.css',
 })
@@ -16,8 +14,8 @@ export class ReposListComponent implements OnInit {
   loading = true;
   reposLimit = signal(8);
   reposVisible: Repo[] = [];
-  selectedRepo: Repo | null = null;
-  constructor(private reposService: RepositoriosService) {}
+
+  constructor(private reposService: RepositoriosService, private router: Router) {}
 
   ngOnInit(): void {
     this.reposService.getRepos().subscribe({
@@ -36,10 +34,6 @@ export class ReposListComponent implements OnInit {
   }
 
   onSelectRepo(repo: Repo): void {
-    this.selectedRepo = repo;
-  }
-
-  onCloseDetail(): void {
-    this.selectedRepo = null;
+    this.router.navigate(['/repositorios', repo.id]);
   }
 }

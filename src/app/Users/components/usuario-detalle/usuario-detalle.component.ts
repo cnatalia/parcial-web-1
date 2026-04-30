@@ -5,17 +5,15 @@ import {
   EventEmitter,
   SimpleChanges,
 } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
 import { User } from '../../models/usuarios-model';
 import { Repo } from '../../../Repositorios/models/repositorios';
 import { RepositoriosService } from '../../../Repositorios/services/repositorios.service';
 
 @Component({
-  standalone: true,
+  standalone: false,
   selector: 'app-usuario-detalle',
-  imports: [NgIf, NgFor],
   templateUrl: './usuario-detalle.component.html',
-  styleUrl: './usuario-detalle.component.css',
+  styleUrls: ['./usuario-detalle.component.css'],
 })
 export class UsuarioDetalleComponent {
   @Input() user: User | null = null;

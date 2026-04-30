@@ -17,9 +17,7 @@
       (click)="onClose()"
         class="h-10 w-10 flex items-center justify-center hover:bg-surface-container rounded-full transition-colors"
       >
-        <span class="material-symbols-outlined text-on-surface-variant"
-          >close</span
-        >
+        <span class="material-symbols-outlined text-on-surface-variant">close</span>
       </button>
     </div>
     <div class="overflow-y-auto p-gutter space-y-lg">
@@ -27,15 +25,12 @@
         class="flex flex-col md:flex-row gap-gutter items-start md:items-center"
       >
         <div class="relative">
-          <div
-            class="h-24 w-24 rounded-2xl overflow-hidden border-4 border-white shadow-lg"
-          >
+          <div class="h-24 w-24 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
             <img
               [alt]="user.name"
               class="h-full w-full object-cover"
               [src]="user.avatarUrl"
-              data-alt="A close-up portrait of a thoughtful young man in a modern office environment. He has short hair and is wearing a dark navy casual blazer. The background is a bright, minimalist coworking space with abundant natural light and soft blue accents. The image conveys a professional, serene, and tech-forward mood consistent with high-end developer tools."
-              />
+            />
           </div>
         </div>
         <div class="flex-1">
@@ -49,26 +44,16 @@
             >
           </div>
           <div class="flex flex-wrap gap-x-6 gap-y-2 mt-2">
-            <div
-              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
-            >
-              <span class="material-symbols-outlined text-[18px]"
-                >alternate_email</span
-              >
+            <div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+              <span class="material-symbols-outlined text-[18px]">alternate_email</span>
               <span>{{ user.username }}</span>
             </div>
-            <div
-              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
-            >
+            <div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
               <span class="material-symbols-outlined text-[18px]">email</span>
               <span>{{ user.email }}</span>
             </div>
-            <div
-              class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm"
-            >
-              <span class="material-symbols-outlined text-[18px]"
-                >location_on</span
-              >
+            <div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+              <span class="material-symbols-outlined text-[18px]">location_on</span>
               <span>{{ user.location }}</span>
             </div>
           </div>
@@ -88,9 +73,11 @@
           Sin repositorios asociados
         </div>
         <div *ngIf="!loadingRepos && repos.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-          *ngFor="let repoId of user.repoIds"
-            class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest transition-all group shadow-sm"
+          <a
+            *ngFor="let repo of repos"
+            [routerLink]="['/repositorios', repo.id]"
+            (click)="onClose()"
+            class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest transition-all group shadow-sm hover:border-primary hover:shadow-md cursor-pointer no-underline"
           >
             <div class="flex items-start justify-between">
               <div>
@@ -100,35 +87,27 @@
                     style="font-variation-settings: &quot;FILL&quot; 1"
                     >folder</span
                   >
-                  <span class="font-button text-button text-on-surface"
-                    ></span
-                  >
+                  <span class="font-button text-button text-on-surface group-hover:text-primary transition-colors">
+                    {{ repo.name }}
+                  </span>
                 </div>
-                <p
-                  class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-1"
-                >
-                  Main backend architecture and API routes.
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-1">
+                  {{ repo.description }}
                 </p>
               </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
             </div>
             <div class="flex items-center gap-4 mt-4">
-              <div
-                class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium"
-              >
-                <span
-                  class="h-2.5 w-2.5 rounded-full bg-primary-container"
-                ></span>
-                <span>TypeScript</span>
+              <div class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium">
+                <span class="h-2.5 w-2.5 rounded-full bg-primary-container"></span>
+                <span>{{ repo.language }}</span>
               </div>
-              <div
-                class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium"
-              >
+              <div class="flex items-center gap-1 text-[12px] text-on-surface-variant font-medium">
                 <span class="material-symbols-outlined text-[16px]">star</span>
-                <span>1.2k</span>
+                <span>{{ repo.stars }}</span>
               </div>
             </div>
-          </div>
-
+          </a>
         </div>
       </section>
     </div>

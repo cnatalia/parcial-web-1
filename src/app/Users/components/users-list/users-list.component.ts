@@ -5,9 +5,8 @@ import { User } from '../../models/usuarios-model';
 import { UsuarioDetalleComponent } from '../usuario-detalle/usuario-detalle.component';
 
 @Component({
-  standalone: true,
+  standalone: false,
   selector: 'app-listar-usuarios',
-  imports: [NgForOf, NgIf, UsuarioDetalleComponent],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
